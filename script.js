@@ -1,65 +1,63 @@
-document.addEventListener('DOMContentLoaded', () => {
-const images = document.querySelectorAll('.carousel-image');
-let currentIndex = 0; // Índice inicial de la imagen activa
-const totalImages = images.length;
-const intervalTime = 4000; // Cambiar imagen cada 4 segundos
+let list = document.querySelector('.slider .list');
+let items = document.querySelectorAll('.slider .list .slide');
+let dots = document.querySelectorAll('.slider .dots li');
+let prev = document.getElementById('prev');
+let next = document.getElementById('next');
 
-// Función para actualizar las transformaciones de las imágenes
-function updateCarousel() {
-    // Estilizar la imagen activa
-    images[currentIndex].style.transform = `translateX(0) scale(1.2)`; // mas grande y centrada
-    images[currentIndex].style.zIndex = 1;
-    images[currentIndex].style.filter = 'none';
-    images[currentIndex].style.opacity = 1;
+let active = 0;
+let lengthItems = items.length - 1;
 
-    // Imágenes a la derecha de la activa
-    let stt= 1; // comenzar en 1 para la primera imagen a la derecha
-    for (let i = currentIndex + 1; i < totalImages; i++) {
-        images[i].style.transform = `translateX(${120 * stt}px) scale(${1 - 0.2 * stt}) perspective(16px) rotateY(-1deg)`;
-        images[i].style.zIndex = -stt;
-        images[i].style.filter = 'blur(5px)';
-        images[i].style.opacity = stt > 2 ? 0 : 0.6;
-        stt++;
+next.onclick = function(){
+    if(active + 1 > lengthItems){
+        active = 0;
+    }else{
+        active = active + 1;
     }
-
-        // Imágenes a la izquierda de la activa
-        stt = 1; // primera imagen a la izquierda
-    for (let i = currentIndex - 1; i >= 0; i--) {
-        stt++;
-        images[i].style.transform = `translateX(${-120 * stt}px) scale(${1 - 0.2 * stt}) perspective(16px) rotateY(1deg)`;
-        images[i].style.zIndex = -stt;
-        images[i].style.filter = 'blur(5px)';
-        images[i].style.opacity = stt > 2 ? 0 : 0.6;
-    }
+    reloadSlider();
 }
-// Función para avanzar automáticamente a la siguiente imagen
-function autoNextImage() {
-    currentIndex = (currentIndex + 1) % totalImages; // Incrementar y reiniciar si se llega al final
-    updateCarousel();
+prev.onclick = function(){
+    if(active - 1 < 0){
+        active = lengthItems; 
+    }else{
+        active = active - 1;
+    }
+    reloadSlider();
 }
 
-// Inicializar el carrusel
-updateCarousel();
+let refreshSlider = setInterval(()=> {next.click()}, 5000);
 
-// Iniciar el carrusel automático
-setInterval(autoNextImage, intervalTime);
+function reloadSlider(){
+    let checkLeft = items[active].offsetLeft;
+    list.style.left = -checkLeft + 'px';
+
+    let lastActiveDot = document.querySelector('.slider .dots li.active');
+    lastActiveDot.classList.remove('active');
+    dots[active].classList.add('active');
+    clearInterval(refreshSlider);
+    let refreshSlider = setInterval(()=> {next.click()}, 5000);
+}
+dots.forEach((li, key) =>{
+    li.addEventListener('click', function(){
+        active = key;
+        reloadSlider();
+    })
+})
+
+
+// Animaciones con GSAP
+gsap.from("#hero h1", {
+    opacity: 0,
+    y: -50,
+    duration: 1
 });
-
-
-    // Animaciones con GSAP
-    gsap.from("#hero h1", {
-        opacity: 0,
-        y: -50,
-        duration: 1
-    });
-    gsap.from("#hero p", {
-        opacity: 0,
-        y: 50,
-        delay: 0.3,
-        duration: 1
-    });
-    gsap.from("#shop-now", {
-        scale: 0.8,
-        delay: 0.6,
-        duration: 1
-    });
+gsap.from("#hero p", {
+    opacity: 0,
+    y: 50,
+    delay: 0.3,
+    duration: 1
+});
+gsap.from("#shop-now", {
+    scale: 0.8,
+    delay: 0.6,
+    duration: 1
+});

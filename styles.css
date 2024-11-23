@@ -9,6 +9,13 @@ body {
     overflow-x: hidden;
 }
 
+#logo {
+    display: none;
+    /* Ocultamos el logo como imagen directa */
+}
+
+
+
 @keyframes fondoAnimado {
     0% {
         background-position: 0% 50%;
@@ -68,47 +75,88 @@ body {
     z-index: 0;
 }
 
-#logo {
-    display: none;
-    /* Ocultamos el logo como imagen directa */
-}
-
-/* Contenedor del carrusel */
-.carousel {
-    display: grid;
-    align-items: center;
-    justify-content: center;
+/* Contenedor del slider */
+.slider {
     position: relative;
-    width: 100%;
-    height: 300px;
+    height: 500px;
+    /* Altura fija del slider */
+    width: 700px;
+    max-width: 100vw;
+    margin: auto;
+    background: transparent;
     overflow: hidden;
+    /* Permite que el fondo animado sea visible */
 }
 
-/* Contenedor de imágenes */
-.carousel-slide {
-    position: center;
+.list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
     display: flex;
-    transition: transform 0.5s ease;
-    width: auto;
+    width: max-content;
+    transition: 1s;
 }
 
-/* Estilo para las imágenes */
-.carousel-image {
-    width: 150px;
-    height: 250px;
-    margin: 0 10px;
-    transition: transform 0.5s, filter 0.5s;
+.list img {
+    width: 700px;
+    max-width: 100vw;
+    height: 100%;
+    object-fit: cover;
 }
 
-.carousel-image.active{
-    transform: scale(1.2);
+.buttons {
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
 }
 
-.carousel-image.blurred{
-    filter: blur(5px);
+.buttons button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 0, 0, 0.767);
+    color: #fff;
+    border: none;
+    font-family: monospace;
+    font-weight: bold;
 }
 
+.dots {
+    position: absolute;
+    bottom: 10px;
+    color: #fff;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
 
+.dots li {
+    list-style: none;
+    width: 10px;
+    height: 10px;
+    background-color: #013033;
+    margin: 20px;
+    border-radius: 20px;
+    transition: 1s;
+}
+
+.dots li.active {
+    width: 30px;
+
+}
+
+@media screen and (max-width:768px) {
+    .slider {
+        height: 400px;
+    }
+}
 
 /* Hero Section */
 #hero {
@@ -117,11 +165,17 @@ body {
     align-items: center;
     flex-direction: column;
     text-align: center;
+    width: 100%;
+    height: 200px;
+    /* Ajustado para que se vea más proporcional */
+    background: #000;
+    /* Fondo para resaltar las imágenes */
+    position: relative;
     padding: 40px 20px;
 }
 
 #hero h1 {
-    font-size: 24px;
+    font-size: 28px;
     margin-top: 20px;
 }
 
@@ -202,3 +256,4 @@ footer {
 footer p {
     margin: 5px 0;
 }
+
