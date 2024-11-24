@@ -9,30 +9,44 @@
 </head>
 
 <body>
-    <!-- Header -->
-    <header id="main-header">
+<header id="main-header">
+    <!-- Logo a la izquierda -->
+    <img src="logovapstudio.jpg" alt="Logo Vap Studio" id="logo">
+
+    <!-- Botón de menú hamburguesa a la derecha -->
+    <button id="menu-toggle" aria-label="Abrir menú">
+        ☰
+    </button>
+
+    <!-- Menú desplegable -->
+    <nav id="dropdown-menu" class="hidden">
         <a href="https://instagram.com/vapstudioo/" target="_blank" class="nav-link">
-            <img src="instagram-iconn.png" alt="Instagram" class="icon"> Sobre Nosotros
+            <img src="instagram-iconn.png" alt="Instagram" class="icon"> Conócenos
         </a>
-        <img src="logovapstudio.jpg" alt="Logo Vap Studio" id="logo">
-    </header>
+        <a href="#hero" class="nav-link">Contacto</a>
+        <a href="#gallery" class="nav-link">Productos</a>
+    </nav>
+</header>
 
         <div class="slider">
             <div class="list">
                 <div class="slide active">
-                    <img src="VapersImg/VaperNuevo1.jpg" alt="Vape 1" class="slider-image">
+                    <img src="VapersImg/vape2.jpg" alt="Vape 1" class="slider-image">
                 </div>
                 <div class="slide">
-                    <img src="VapersImg/VaperNuevo2.jpg" alt="Vape 2" class="slider-image">
+                    <img src="VapersImg/VaperSlider2.jpg" alt="Vape 2" class="slider-image">
                 </div>
                 <div class="slide">
-                    <img src="VapersImg/VaperNuevo3.jpg" alt="Vape 3" class="slider-image">
+                    <img src="VapersImg/VaperSlider3.jpg" alt="Vape 3" class="slider-image">
                 </div>
                 <div class="slide">
-                    <img src="VapersImg/VaperNuevo4.jpg" alt="Vape 4" class="slider-image">
+                    <img src="VapersImg/VaperSlider4Test.jpg" alt="Vape 4" class="slider-image">
                 </div>
                 <div class="slide">
-                    <img src="VapersImg/VaperNuevo5.jpg" alt="Vape 5" class="slider-image">
+                    <img src="VapersImg/VaperSlider5.jpg" alt="Vape 5" class="slider-image">
+                </div>
+                <div class="slide">
+                    <img src="VapersImg/VaperSlider6.jpg" alt="Vape 6" class="slider-image">
                 </div>
             </div>
             <div class="buttons">
@@ -52,21 +66,36 @@
         <div class="hero-content">
             <h1>Experimenta el sabor de los Nuevos Vapers</h1>
             <p>Vapers de calidad premium con un diseño moderno y sabores únicos.</p>
-            <a id="shop-now" href="https://wa.me/" target="_blank" rel="noopener noreferrer">Comprar Ahora</a>
+            <a id="shop-now" href="https://wa.me/5492213040445" target="_blank" rel="noopener noreferrer">Comprar Ahora</a>
         </div>
     </section>
     <!-- Galería de Imágenes -->
-    <section id="gallery">
-        <h2>Conoce más sabores</h2>
-        <div class="gallery-grid">
-            <img src="VapersImg/Vape-Watermelonmix.jpg" alt="Watermelon Mix">
-            <img src="VapersImg/vape2.jpg" alt="Lost Mary Mixer">
-            <img src="VapersImg/Vape3.jpg" alt="Oxbar Magic Maze">
-            <img src="VapersImg/Vape4.jpg" alt="Elfbar 18000">
-            <img src="VapersImg/Vape55.jpg" alt="Geek BAR Pulse">
-            <img src="VapersImg/VaperNuevo5.jpg" alt="Imagen Vape 5">
+<section id="gallery">
+    <h2>Conoce más sabores</h2>
+    <div class="gallery-grid">
+        <img src="VapersImg/Vape-Watermelonmix.jpg" alt="Watermelon Mix"
+            data-description="Disfruta del sabor fresco y único del Watermelon Mix.">
+        <img src="VapersImg/VaperNuevo2.jpg" alt="IGNITE V150 - Sour Raspberry"
+            data-description="El IGNITE V150 combina un diseño moderno con el sabor dulce de Sour Raspberry.">
+        <img src="VapersImg/Vape3.jpg" alt="Oxbar Magic Maze"
+            data-description="Oxbar Magic Maze te llevará por un laberinto de sabores intensos.">
+        <img src="VapersImg/DoubleAppleVape.jpg" alt="Elfbar Cherry Apple"
+            data-description="Una deliciosa combinación de cereza y manzana en cada inhalación.">
+        <img src="VapersImg/VaperNuevo4.jpg" alt="Geek BAR - Crazy Melon"
+            data-description="Crazy Melon ofrece un toque de frescura con un sabor increíblemente dulce.">
+        <img src="VapersImg/Vapernuevo5.jpg" alt="Cherry Peach Lemonade"
+            data-description="La mezcla perfecta de cereza, durazno y limonada para un día refrescante.">
+    </div>
+</section>
+
+    <!-- Modal -->
+    <div id="modal" class="hidden">
+        <div class="modal-content">
+            <img id="modal-image" src="" alt="">
+            <p id="modal-description"></p>
+            <button id="close-modal">X</button>
         </div>
-    </section>
+    </div>
 
     <!-- Footer -->
     <footer>
