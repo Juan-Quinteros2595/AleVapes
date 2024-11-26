@@ -43,20 +43,29 @@ dots.forEach((li, key) =>{
     })
 })
 
-// Funcionalidad del modal para la galería
+// Modal funcionalidad
 const modal = document.getElementById('modal');
 const modalImage = document.getElementById('modal-image');
+const modalModelo = document.getElementById('modal-modelo');
 const modalDescription = document.getElementById('modal-description');
+const modalMessage = document.getElementById('modal-message');
 const closeModal = document.getElementById('close-modal');
+const modalLink = document.getElementById('modal-link');
 
 // Abrir el modal al hacer clic en una imagen
 document.querySelectorAll('.gallery-grid img').forEach((img) => {
     img.addEventListener('click', () => {
+        const modelo = img.getAttribute('data-modelo');
         modalImage.src = img.src;
         modalImage.alt = img.alt;
 
-        // Usar el atributo `data-description` para la descripción
+        // Actualizar modelo, descripción y mensaje
+        modalModelo.textContent = modelo;
         modalDescription.textContent = img.getAttribute('data-description');
+        modalMessage.textContent = `Mensaje sugerido: "Hola! Me interesa el modelo ${modelo}, ¿está disponible? ¿Podrías indicarme su precio? Gracias."`;
+
+        // Configurar el enlace al chat de Instagram
+        modalLink.href = `https://instagram.com/vapstudioo`;
 
         modal.classList.add('visible');
     });
@@ -93,4 +102,71 @@ const dropdownMenu = document.getElementById('dropdown-menu');
 // Evento para mostrar/ocultar el menú
 menuToggle.addEventListener('click', () => {
     dropdownMenu.classList.toggle('visible'); // Alternar clase visible
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Inicializa el mapa centrado en La Plata
+    const map = L.map("map", { scrollWheelZoom: false }).setView([-34.9205, -57.9536], 13);
+
+    // Agrega capa base de OpenStreetMap
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "© OpenStreetMap contributors",
+    }).addTo(map);
+
+    // Define zona roja (La Plata) como un polígono inclinado
+    const highCostZone = [
+        [-34.9050, -57.9850], // Esquina superior izquierda
+        [-34.9000, -57.9300], // Esquina superior derecha
+        [-34.9500, -57.9300], // Esquina inferior derecha
+        [-34.9500, -57.9850], // Esquina inferior izquierda
+    ];
+
+    // Define zona verde (Ringuelet) como un polígono inclinado
+    const lowCostZone = [
+        [-34.8800, -58.0200], // Esquina superior izquierda
+        [-34.8800, -57.9700], // Esquina superior derecha
+        [-34.9050, -57.9700], // Esquina inferior derecha
+        [-34.9050, -58.0200], // Esquina inferior izquierda
+    ];
+
+    // Crea polígonos para las zonas
+    const highCostPolygon = L.polygon(highCostZone, {
+        color: "#ff0000",
+        fillColor: "#ff0000",
+        fillOpacity: 0.4,
+    }).addTo(map);
+
+    const lowCostPolygon = L.polygon(lowCostZone, {
+        color: "#28a745",
+        fillColor: "#28a745",
+        fillOpacity: 0.4,
+    }).addTo(map);
+
+    // Eventos para mostrar información al hacer clic en cada zona
+    highCostPolygon.on("click", (e) => {
+        L.popup().setLatLng(e.latlng).setContent("Zona La Plata: Costo de envío $6000").openOn(map);
+    });
+
+    lowCostPolygon.on("click", (e) => {
+        L.popup().setLatLng(e.latlng).setContent("Zona Ringuelet: Costo de envío $3500 - $4000").openOn(map);
+    });
+
+    // Ajusta la vista del mapa para mostrar ambas zonas
+    map.fitBounds([...highCostZone, ...lowCostZone]);
+
+    // Botón para desbloquear/lock scroll del mapa
+    const unlockButton = document.getElementById("unlock-map");
+    unlockButton.addEventListener("click", () => {
+        const scrollEnabled = map.scrollWheelZoom.enabled();
+        if (scrollEnabled) {
+            map.scrollWheelZoom.disable();
+            unlockButton.textContent = "Desbloquear Zoom";
+        } else {
+            map.scrollWheelZoom.enable();
+            unlockButton.textContent = "Bloquear Zoom";
+        }
+    });
 });
